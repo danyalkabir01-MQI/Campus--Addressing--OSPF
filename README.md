@@ -99,3 +99,26 @@ Routers ko jorne ke liye sirf 2 IP chahiye hote hain, isliye /30 use kiya hai.
 | R1 - R2 | 10.20.3.64/30 | R1: 10.20.3.65, R2: 10.20.3.66 | 255.255.255.252 |
 | R2 - R3 | 10.20.3.68/30 | R2: 10.20.3.69, R3: 10.20.3.70 | 255.255.255.252 |
 | R1 - R3 | 10.20.3.72/30 | R1: 10.20.3.73, R3: 10.20.3.74 | 255.255.255.252 |
+
+
+## VLSM Working - Area 10 Admin Block (On Paper Method)
+
+Total Hosts Started From: 70 hosts (Office 50 + Accounts 20)
+
+1. Office - Largest First
+   Needed: 50 hosts
+   Calculation: 50 + 2 (Network + Broadcast) = 52
+   Next Power of 2: 64 = Block Size 64
+   Prefix: /26 (32 - 6 = 26, because 2^6 = 64)
+   Network: 10.20.2.192/26
+   Usable: 10.20.2.193 - 10.20.2.254
+   Broadcast: 10.20.2.255
+
+2. Accounts - Next
+   Needed: 20 hosts
+   Calculation: 20 + 2 = 22
+   Next Power of 2: 32 = Block Size 32
+   Prefix: /27 (32 - 5 = 27, because 2^5 = 32)
+   Network: 10.20.3.0/27
+   Usable: 10.20.3.1 - 10.20.3.30
+   Broadcast: 10.20.3.31

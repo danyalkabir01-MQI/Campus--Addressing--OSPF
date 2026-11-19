@@ -69,3 +69,33 @@ router ospf 1
 ## 6. How to Check?
 - show ip ospf neighbor
 - ping 10.20.0.1
+
+## 7. OSPF Area Design + VLSM Calculations
+
+### Area 0 - Main Building (R1)
+- Students: Need 200 hosts -> Need 256 addresses -> /24
+  Network: 10.20.0.0/24, Usable: 10.20.0.1 - 10.20.0.254, Broadcast: 10.20.0.255
+- Teachers: Need 100 hosts -> Need 128 addresses -> /25
+  Network: 10.20.1.128/25, Usable: 10.20.1.129 - 10.20.1.254, Broadcast: 10.20.1.255
+
+### Area 10 - Admin Block (R2)
+- Office: Need 50 hosts -> Need 64 addresses -> /26
+  Network: 10.20.2.192/26, Usable: 10.20.2.193 - 10.20.2.254, Broadcast: 10.20.2.255
+- Accounts: Need 20 hosts -> Need 32 addresses -> /27
+  Network: 10.20.3.0/27, Usable: 10.20.3.1 - 10.20.3.30, Broadcast: 10.20.3.31
+
+### Area 20 - Hostel (R3)
+- Hostel: Need 100 hosts -> Need 128 addresses -> /25
+  Network: 10.20.1.0/25, Usable: 10.20.1.1 - 10.20.1.126, Broadcast: 10.20.1.127
+- Guest WiFi: Need 20 hosts -> Need 32 addresses -> /27
+  Network: 10.20.3.32/27, Usable: 10.20.3.33 - 10.20.3.62, Broadcast: 10.20.3.63
+
+## 8. Point-to-Point Link Subnets - Router to Router
+
+Routers ko jorne ke liye sirf 2 IP chahiye hote hain, isliye /30 use kiya hai.
+
+| Link | Network | R1 / R2 / R3 IP | Mask |
+| --- | --- | --- | --- |
+| R1 - R2 | 10.20.3.64/30 | R1: 10.20.3.65, R2: 10.20.3.66 | 255.255.255.252 |
+| R2 - R3 | 10.20.3.68/30 | R2: 10.20.3.69, R3: 10.20.3.70 | 255.255.255.252 |
+| R1 - R3 | 10.20.3.72/30 | R1: 10.20.3.73, R3: 10.20.3.74 | 255.255.255.252 |
